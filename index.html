@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>Speed Test Stats</title>
+    <!-- css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/daterangepicker.css">
+
+    <!-- js -->
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="js/libs/Chart.min.js"></script>
+    <script src="js/libs/moment-with-locales.min.js"></script>
+    <script src="js/libs/daterangepicker.js"></script>
+    <script src="js/libs/papaparse.min.js"></script>
+
+    <!-- custom -->
+    <script type="text/javascript" src="js/appConfig.js"></script>
+    <script type="text/javascript" src="js/evaluation.js"></script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-header">
+                    Statistics
+                </div>
+                <div class="card-block">
+                    <h4 class="card-title">
+                        <label for="daterange">Time Filter</label>
+                    </h4>
+                    <div class="form-group">
+                        <input id="daterange" type="text" class="form-control" name="daterange" />
+                    </div>
+
+                    <canvas id="speedChart" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
