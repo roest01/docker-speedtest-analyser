@@ -6,8 +6,11 @@ It used [speedtest-cli](https://github.com/sivel/speedtest-cli) to make speedtes
 After that you can visit the web interface to view a hourly - time filterable reports about
 your internet connectivity speed.
 
+# Screenshot
+![Statistic Screenshot](/data/speedlogger_screenshot.png?raw=true)
+
 # Installation
-I try to provide this tool to run out of the box.
+I try to provide this tool to run out of the box.  
 Therefore it does not use bower, grunt or any other tool to keep the installation simple.
 
 Clone the repo  
@@ -25,6 +28,8 @@ create cronjob on you machine running every hour
 ``
 0       *       *       *       *       root    /PATH_TO_DIR/scripts/speedtest.py >/dev/null 2>&1
 ``
+
+You can run the webinterface by pointing a vhost to root folder or simply open index.html
 
 # Config
 You can configure the visualization frontend via js/appConfig.js
