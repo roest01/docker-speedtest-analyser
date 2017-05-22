@@ -6,11 +6,11 @@
     <link rel="stylesheet" href="css/daterangepicker.css">
 
     <!-- js -->
-    <script src="js/libs/jquery.min.js"></script>
-    <script src="js/libs/Chart.min.js"></script>
-    <script src="js/libs/moment-with-locales.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/chart.js/dist/Chart.js"></script>
+    <script src="bower_components/moment/min/moment-with-locales.min.js"></script>
     <script src="js/libs/daterangepicker.js"></script>
-    <script src="js/libs/papaparse.min.js"></script>
+    <script src="bower_components/papaparse/papaparse.min.js"></script>
 
     <!-- custom -->
     <script type="text/javascript" src="js/appConfig.js"></script>
@@ -35,7 +35,7 @@
                         <input id="daterange" type="text" class="form-control" name="daterange" />
                     </div>
 
-                    <canvas id="speedChart" height="400"></canvas>
+                    <canvas id="speedChart" style="max-height:90vh;"></canvas>
                 </div>
             </div>
         </div>
