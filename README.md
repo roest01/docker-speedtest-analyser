@@ -1,13 +1,18 @@
 # Docker Speedtest Analyser
 
-automated tool and web interface to monitor your internet speed delivered in a docker container.
+Automated docker speedtest analyser tool with included web interface to monitor your internet speed connection over time. Setup at home on your NAS (Synology, QNAP tested) and the container runs hourly speedtests. The speedtest results are displayed in an webinterface as line graph(s) over the day.
+
 This tool was created in reference to [this reddit post](https://www.reddit.com/r/technology/comments/43fi39/i_set_up_my_raspberry_pi_to_automatically_tweet/).  
 It used [speedtest-cli](https://github.com/sivel/speedtest-cli) to make speedtests and log them into a CSV file.  
 After that you can visit the web interface to view a hourly - time filterable reports about
 your internet connectivity speed.
 
 # Screenshot
-![Statistic Screenshot](/speedlogger_screenshot.png?raw=true)
+![Statistic Screenshot](https://github.com/roest01/docker-speedtest-analyser/raw/master/speedlogger_screenshot.png?raw=true)
+
+# Docker Hub Image
+You can get the publicly available docker image at the following location: [roest/docker-speedtest-analyser](https://hub.docker.com/r/roest/docker-speedtest-analyser/).
+
 
 # Facts
 1. The speedtest runs hourly

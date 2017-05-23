@@ -1,8 +1,9 @@
 {
   "name": "docker-speedtest-analyser",
-  "homepage": "https://github.com/roest01/speedlogger",
+  "version": "v1.1",
+  "homepage": "https://github.com/roest01/docker-speedtest-analyser",
   "authors": [
-    "Tobias Rös <info@protoyou.de>"
+    "Tobias Rös <roes@amicaldo.de>"
   ],
   "description": "automated tool and web interface to monitor your internet speed",
   "main": "",
@@ -10,10 +11,7 @@
   "private": true,
   "ignore": [
     "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
+    "bower_components"
   ],
   "dependencies": {
     "papaparse": "^4.3.2",
