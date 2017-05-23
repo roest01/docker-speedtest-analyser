@@ -1,0 +1,1 @@
+0 * * * * /var/www/html/scripts/speedtest.py >/dev/null 2>&1
