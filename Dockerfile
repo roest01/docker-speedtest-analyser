@@ -6,6 +6,8 @@ MAINTAINER Tobias Rös - <roes@amicaldo.de>
 # install dependencies
 RUN apk update && apk add \
   bash \
+  git \
+  nodejs \
   nginx \
   python \
   py-pip
@@ -34,6 +36,9 @@ RUN chmod +x /tmp/run.sh
 
 # install webroot files
 ADD ./ /var/www/html/
+
+# install bower dependencies
+RUN npm install -g bower && cd /var/www/html/ && bower install --quiet
 
 # activate cronjob
 RUN crontab /var/www/html/config/crontab
