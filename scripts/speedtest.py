@@ -13,7 +13,7 @@ def runSpeedtest():
 
         #run speedtest-cli
         print 'running test'
-        a = os.popen("python "+os.path.dirname(os.path.abspath(__file__))+"/speedtest-cli/speedtest_cli.py --simple").read()
+        a = os.popen("speedtest-cli --simple").read()
         print 'ran'
         #split the 3 line result (ping,down,up)
         lines = a.split('\n')
