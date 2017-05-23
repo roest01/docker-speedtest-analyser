@@ -1,66 +1,49 @@
-# Speedtest Logger
+# Docker Speedtest Analyser
 
-automated tool and web interface to monitor your internet speed.  
+automated tool and web interface to monitor your internet speed delivered in a docker container.
 This tool was created in reference to [this reddit post](https://www.reddit.com/r/technology/comments/43fi39/i_set_up_my_raspberry_pi_to_automatically_tweet/).  
 It used [speedtest-cli](https://github.com/sivel/speedtest-cli) to make speedtests and log them into a CSV file.  
 After that you can visit the web interface to view a hourly - time filterable reports about
 your internet connectivity speed.
 
 # Screenshot
-![Statistic Screenshot](/data/speedlogger_screenshot.png?raw=true)
+![Statistic Screenshot](/speedlogger_screenshot.png?raw=true)
+
+# Facts
+1. The speedtest runs hourly
+2. No environment variables
+3. nginx is prepared but not configured for SSL yet
+4. data is saved in a _.csv_ under ```/var/www/html/data/result.csv```
+5. First speedtest will be executed in container build
 
 # Installation
-I try to provide this tool to run out of the box.  
-Therefore it does not use bower, grunt or any other tool to keep the installation simple.
+The SpeedTest analyser should to run out of the box with docker.
 
-Clone the repo  
-``
-git clone https://github.com/roest01/speedlogger.git
-``
+**Important:** To keep the history of speedtest within a rebuild of
+the container please moint a volume in ``/var/www/html/data/``
 
-make scripts executable  
-``
-chmod +x scripts/speedtest.py
-chmod +x scripts/speedtest-cli/speedtest_cli.py
-``
-
-create cronjob on you machine running every hour  
-``
-0       *       *       *       *       root    /PATH_TO_DIR/scripts/speedtest.py >/dev/null 2>&1
-``
-
-You can run the webinterface by pointing a vhost to root folder or simply open index.html
+### Setup:
+1. Moint host volume onto ``/var/www/html/data/``
+2. Map preferred host port on port _80_
+3. Build container from image
+4. Enjoy continious speed statistics after a while
 
 # Config
-You can configure the visualization frontend via js/appConfig.js
+You can configure the visualization frontend via volume in
+``/var/www/html/js/appConfig.js``
 
 
-# Troubleshooting
-I've setup the speedtest-cli module under scripts/ and checking in all the files
-created with the setup progress of speedtest-cli/setup.py.
-
-If the speedtest don't run with your machine clear scripts/speedtest-cli folder
-and reinstall [speedtest-cli](https://github.com/sivel/speedtest-cli).
-``
-cd scripts
-git clone https://github.com/sivel/speedtest-cli.git
-cd speedtest-cli
-python setup.py install
-``
-
-#Libs
-1. bootstrap 4 - alpha
+#### Libs used
+1. Bootstrap 4 - alpha
 2. Chart.js
 3. daterangepicker.js
 4. moment.js
 5. papaparse
 6. speedtest-cli
 
-#Disclaimer / Off topic
+##### Disclaimer / Off topic
 I've written this small tool for private use on my Synology NAS.  
-The original twitter function is removed in this Version.  
-I'm sure this tool has still some bugs and of course feature potential.  
-The biggest problems in the interface where at updating the charts.js data points.  
+The original twitter function is removed in this version.
 
 If you want to contribute and report / fix bugs or bring the feature stuff written for your
 own setup, don't be shy.
