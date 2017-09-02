@@ -2,7 +2,7 @@
 <head>
     <title>Speed Test Stats</title>
     <!-- css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
 
     <!-- js -->
@@ -20,25 +20,19 @@
 </head>
 <body>
 
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="card">
-                <div class="card-header">
-                    Statistics
-                </div>
-                <div class="card-block">
-                    <h4 class="card-title">
-                        <label for="daterange">Time Filter</label>
-                    </h4>
-                    <div class="form-group">
-                        <input id="daterange" type="text" class="form-control" name="daterange" />
-                    </div>
-
-                    <canvas id="speedChart" style="max-height:90vh;"></canvas>
-                </div>
-            </div>
+<div class="card" style="border-bottom: 0;">
+    <div class="card-header">
+        Statistics
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">
+            <label for="daterange">Time Filter</label>
+        </h4>
+        <div class="form-group">
+            <input id="daterange" type="text" class="form-control" name="daterange" />
         </div>
+
+        <canvas id="speedChart" style="max-height:73vh;"></canvas>
     </div>
 </div>
 </body>
