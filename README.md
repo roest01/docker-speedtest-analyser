@@ -15,11 +15,10 @@ You can get the publicly available docker image at the following location: [roes
 
 
 # Facts
-1. The speedtest runs hourly
-2. No environment variables
-3. nginx is prepared but not configured for SSL yet
-4. data is saved in a _.csv_ under ```/var/www/html/data/result.csv```
-5. First speedtest will be executed in container build
+1. The speedtest runs hourly per default
+2. nginx is prepared but not configured for SSL yet
+3. data is saved in a _.csv_ under ```/var/www/html/data/result.csv```
+4. First speedtest will be executed in container build
 
 # Installation
 The SpeedTest analyser should to run out of the box with docker.
@@ -32,6 +31,11 @@ the container please moint a volume in ``/var/www/html/data/``
 2. Map preferred host port on port _80_
 3. Build container from image
 4. Enjoy continious speed statistics after a while
+
+# Environment variables
+| Variable  | Type | Usage |  Example Value |
+| ------------- | ------------- | ------------- | ------------- |
+| CRONJOB_ITERATION  | INT  | Minutes between the speedtests. Value 15 means the Cronjob runs every 15 minutes. Keep undefined to run hourly. | 15 |
 
 # Config
 You can configure the visualization frontend via volume in
