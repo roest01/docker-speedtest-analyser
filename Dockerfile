@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.6
 
 # greet me :)
 MAINTAINER Tobias Rös - <roes@amicaldo.de>
@@ -8,6 +8,7 @@ RUN apk update && apk add \
   bash \
   git \
   nodejs \
+  nodejs-npm \
   nginx \
   python \
   py-pip
