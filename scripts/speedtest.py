@@ -12,7 +12,7 @@ import time
 def runSpeedtest():
 
         #run speedtest-cli
-        print 'running test'
+        print 'running speedtest'
         a = os.popen("speedtest-cli --simple").read()
         print 'ran'
         #split the 3 line result (ping,down,up)
