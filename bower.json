@@ -14,9 +14,10 @@
     "bower_components"
   ],
   "dependencies": {
-    "papaparse": "^4.3.2",
-    "bootstrap": "v4.0.0-alpha.6",
-    "chart.js": "Chart.js#^2.5.0",
-    "moment": "^2.18.1"
+    "papaparse": "^4.3.6",
+    "bootstrap": "v4.0.0-beta",
+    "chart.js": "Chart.js#^2.7.0",
+    "moment": "^2.18.1",
+    "dangrossman/bootstrap-daterangepicker": "^2.1.25"
   }
 }
