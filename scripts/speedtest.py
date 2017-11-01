@@ -33,8 +33,16 @@ def runSpeedtest():
                 u = lines[2][8:12]
         print date,p, d, u
         #save the data to file for local network plotting
-        out_file = open(os.path.dirname(os.path.abspath(__file__))+'/../data/result.csv', 'a')
+        filepath = os.path.dirname(os.path.abspath(__file__))+'/../data/result.csv'
+        fileExist = os.path.isfile(filepath)
+
+        out_file = open(filepath, 'a')
         writer = csv.writer(out_file)
+
+        if fileExist != True:
+                out_file.write("timestamp,ping,download,upload")
+                out_file.write("\n")
+
         writer.writerow((ts*1000,p,d,u))
         out_file.close()
 
