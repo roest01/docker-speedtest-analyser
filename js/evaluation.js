@@ -233,5 +233,29 @@ jQuery(document).ready(function(){
                 .setEndDate(appConfig.daterange.endDate);
         }
         parseManager.parse();
+
+        jQuery('#startSpeedtest').click(function(){
+            let buttonHelper = new ButtonHlpr(this);
+
+            buttonHelper.loading();
+
+            jQuery.get( "/run_speedtest", function( data ) {
+                buttonHelper.reset();
+                parseManager.flushChart(true, function(){
+                    parseManager.parse();
+                });
+            });
+        });
     });
 });
+
+var ButtonHlpr = function(btn){
+    let button = jQuery(btn);
+    this.loading = function(){
+        button.html(button.data('loading-text'));
+    };
+
+    this.reset = function(){
+        button.html(button.data('original-text'));
+    };
+};

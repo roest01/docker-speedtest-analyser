@@ -10,7 +10,8 @@ RUN apk update && apk add \
   nodejs \
   nodejs-npm \
   nginx \
-  python \
+  nginx-mod-http-lua \
+  python3 \
   py-pip
 
 
@@ -43,5 +44,6 @@ RUN cd /var/www/html/scripts && ./speedtest.py
 EXPOSE 80
 EXPOSE 443
 
+RUN chown -R nginx:nginx /var/www/html/
 RUN chmod +x /var/www/html/config/run.sh
 ENTRYPOINT ["/var/www/html/config/run.sh"]
