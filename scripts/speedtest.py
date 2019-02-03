@@ -13,7 +13,15 @@ def runSpeedtest():
 
         #run speedtest-cli
         print('running speedtest')
-        a = os.popen("speedtest-cli --simple").read()
+        speedtestCommand= "speedtest-cli --simple"
+        if "SPEEDTEST_SERVER" in os.environ:
+            server_= os.environ.get('SPEEDTEST_SERVER')
+            print('speedtest with preferred server: ' + server_)
+            speedtestCommand= "speedtest-cli --simple --mini https://" + server_
+        else:
+            print('running with default server')
+
+        a = os.popen(speedtestCommand).read()
         print('ran')
         #split the 3 line result (ping,down,up)
         lines = a.split('\n')

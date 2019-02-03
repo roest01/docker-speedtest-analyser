@@ -36,6 +36,7 @@ the container please moint a volume in ``/var/www/html/data/``
 | Variable  | Type | Usage |  Example Value |
 | ------------- | ------------- | ------------- | ------------- |
 | CRONJOB_ITERATION  | INT  | Minutes between the speedtests. Value 15 means the Cronjob runs every 15 minutes. Keep undefined to run hourly. | 15 |
+| SPEEDTEST_SERVER  | STRING  | mini server URL without protocol to prefer | ... |
 
 # Config
 You can configure the visualization frontend via ``appConfig.js``
