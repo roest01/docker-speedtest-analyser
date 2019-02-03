@@ -12,15 +12,15 @@ import time
 def runSpeedtest():
 
         #run speedtest-cli
-        print 'running speedtest'
+        print('running speedtest')
         a = os.popen("speedtest-cli --simple").read()
-        print 'ran'
+        print('ran')
         #split the 3 line result (ping,down,up)
         lines = a.split('\n')
-        print a
+        print(a)
         ts = time.time()
         date =datetime.datetime.fromtimestamp(ts).strftime('%d.%m.%Y %H:%M:%S')
-        print date
+        print(date)
         #if speedtest could not connect set the speeds to 0
         if "Cannot" in a:
                 p = 100
@@ -31,7 +31,7 @@ def runSpeedtest():
                 p = lines[0][6:11]
                 d = lines[1][10:14]
                 u = lines[2][8:12]
-        print date,p, d, u
+        print(date,p, d, u)
         #save the data to file for local network plotting
         filepath = os.path.dirname(os.path.abspath(__file__))+'/../data/result.csv'
         fileExist = os.path.isfile(filepath)
@@ -50,4 +50,4 @@ def runSpeedtest():
 
 if __name__ == '__main__':
         runSpeedtest()
-        print 'speedtest complete'
+        print('speedtest complete')
