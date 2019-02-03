@@ -38,9 +38,6 @@ ADD ./ /var/www/html/
 # install bower dependencies
 RUN npm install -g yarn && cd /var/www/html/ && yarn install
 
-# run first speedtest
-RUN cd /var/www/html/scripts && ./speedtest.py
-
 EXPOSE 80
 EXPOSE 443
 
