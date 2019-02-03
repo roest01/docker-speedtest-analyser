@@ -50,6 +50,17 @@ You can configure the visualization frontend via volume in
 5. papaparse
 6. speedtest-cli
 
+#### Licence
+This repo is published with MIT and i'm good with it.
+But here are some things i'm not good with:
+
+Please do not fork and republish this repo.
+If you need to change sth. make a feature and do a pull request.
+Especially reDistributions on hub.docker.com are unwanted.
+
+You can sell reDistribute sell and do whatever you want if it's not public available
+(for example in a private docker registry)
+
 ##### Disclaimer / Off topic
 I've written this small tool for private use on my Synology NAS.  
 The original twitter function is removed in this version.
