@@ -50,7 +50,7 @@ jQuery(document).ready(function(){
                 callbacks: {
                     label: function(item, data){
                         if (data.datasets[item.datasetIndex].isMB){
-                            return data.datasets[item.datasetIndex].label + ": "+ item.yLabel + ' Mb/s'
+                            return data.datasets[item.datasetIndex].label + ": "+ item.yLabel + ' MBits/s'
                         }
                         return data.datasets[item.datasetIndex].label + ": " + item.yLabel;
                     }
