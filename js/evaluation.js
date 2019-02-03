@@ -8,6 +8,9 @@ jQuery(document).ready(function(){
         black: "rgba(90,90,90,1)",
         green: "rgba(143,181,178,0.8)"
     };
+    if (appConfig.customTitle){
+        jQuery('#title').html(appConfig.customTitle);
+    }
     var data = {
         labels:[] ,
         datasets: [
