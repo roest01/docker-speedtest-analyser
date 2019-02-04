@@ -25,7 +25,7 @@ jQuery(document).ready(function(){
             {
                 label: appConfig.labels.upload,
                 isMB: true,
-                fill: true,
+                fill: false,
                 backgroundColor: colors.green,
                 borderColor: colors.green,
                 tension: 0
@@ -64,8 +64,7 @@ jQuery(document).ready(function(){
                 intersect: true
             },
             responsive: true,
-            multiTooltipTemplate: "<%if (datasetLabel){%><%=datasetLabel%>: <%}%><%= value %> <%if (datasetLabel != appConfig.labels.ping){%>Mb/s<%}%>"
-            //maintainAspectRatio: false
+            multiTooltipTemplate: "<%if (datasetLabel){%><%=datasetLabel%>: <%}%><%= value %> <%if (datasetLabel != appConfig.labels.ping){%>MBits/s<%}%>"
         }
     });
 
@@ -77,6 +76,8 @@ jQuery(document).ready(function(){
         parseManager._endDate = null;
         parseManager._chart = null;
         parseManager.i = 0;
+        parseManager.uploadCount = 0;
+        parseManager.downloadCount = 0;
 
         /**
          * parse result.csv and create graph with _startDate and _endDate filter
@@ -124,6 +125,12 @@ jQuery(document).ready(function(){
             let chartData = chart.config.data;
             chartData.labels.push(this.getDateFromData(measureRow));
 
+            if (parseFloat(measureRow['upload']) > parseFloat(measureRow['download'])){
+                parseManager.uploadCount++;
+            } else {
+                parseManager.downloadCount++;
+            }
+
             chartData.datasets[0].data.push(
                 measureRow['ping']
             );
@@ -134,6 +141,29 @@ jQuery(document).ready(function(){
                 measureRow['download']
             );
 
+            /**
+             * graph has to be filled dynamically whether upload or download is higher. See issue #10
+             */
+            let total = parseManager.uploadCount + parseManager.downloadCount;
+            let largerValue = 0;
+            if (parseManager.uploadCount > parseManager.downloadCount){
+                chartData.datasets[1].fill = "+1"; //fill upload till download line
+                chartData.datasets[2].fill = "origin";
+                largerValue = parseManager.uploadCount;
+            } else {
+                //upload lower than download -> priority for upload
+                chartData.datasets[1].fill = "origin";
+                chartData.datasets[2].fill = "-1"; //fill download starting @ upload line
+                largerValue = parseManager.downloadCount;
+            }
+
+            let percentDominated = largerValue * 100 / total;
+            if (percentDominated < 70){ //threshold
+                //no fill for upload because more than 30% overlapping
+                chartData.datasets[1].fill = false;
+                chartData.datasets[2].fill = true;
+            }
+
             parseManager._chart.config.data = chartData;
             chart.update();
         };
@@ -141,6 +171,9 @@ jQuery(document).ready(function(){
         parseManager.flushChart = function(force, callback){
             let parseManager = this;
             let chart = parseManager._chart;
+
+            parseManager.uploadCount = 0;
+            parseManager.downloadCount = 0;
 
             chart.data.labels = [];
             chart.data.datasets.forEach(function(dataSet){
