@@ -38,8 +38,8 @@ the container please moint a volume in ``/var/www/html/data/``
 | CRONJOB_ITERATION  | INT  | Minutes between the speedtests. Value 15 means the Cronjob runs every 15 minutes. Keep undefined to run hourly. | 15 |
 
 # Config
-You can configure the visualization frontend via volume in
-``/var/www/html/js/appConfig.js``
+You can configure the visualization frontend via ``appConfig.js``
+copy the ``/js/appConfig.example.js`` into ``/data/appConfig.js`` (where your volume should be mounted)
 
 
 #### Libs used
@@ -58,8 +58,7 @@ Please do not fork and republish this repo.
 If you need to change sth. make a feature and do a pull request.
 Especially reDistributions on hub.docker.com are unwanted.
 
-You can sell reDistribute sell and do whatever you want if it's not public available
-(for example in a private docker registry)
+You can sell reDistribute (in an private registry) publish at github and do whatever you want if the image is not public available.
 
 ##### Disclaimer / Off topic
 I've written this small tool for private use on my Synology NAS.  
