@@ -3,7 +3,7 @@
  * @author github/roest01
  */
 jQuery(document).ready(function(){
-    var colors = {
+    let colors = {
         orange: "rgba(255,190,142,0.5)",
         black: "rgba(90,90,90,1)",
         green: "rgba(143,181,178,0.8)"
@@ -11,7 +11,7 @@ jQuery(document).ready(function(){
     if (appConfig.customTitle){
         jQuery('#title').html(appConfig.customTitle);
     }
-    var data = {
+    let data = {
         labels:[] ,
         datasets: [
             {
@@ -42,8 +42,8 @@ jQuery(document).ready(function(){
     };
 
 
-    var chartDom = jQuery("#speedChart").get(0).getContext("2d");
-    var chartJS = new Chart(chartDom, {
+    let chartDom = jQuery("#speedChart").get(0).getContext("2d");
+    let chartJS = new Chart(chartDom, {
         type: "line",
         data: data,
         options: {
@@ -70,8 +70,8 @@ jQuery(document).ready(function(){
     });
 
 
-    var ParseManager = function(){
-        var parseManager = this;
+    let ParseManager = function(){
+        let parseManager = this;
         parseManager.header = null;
         parseManager._startDate = null;
         parseManager._endDate = null;
@@ -82,19 +82,19 @@ jQuery(document).ready(function(){
          * parse result.csv and create graph with _startDate and _endDate filter
          */
         parseManager.parse = function(){
-            var parseManager = this;
+            let parseManager = this;
             parseManager.i = 0;
 
             Papa.parse("data/result.csv", {
                 download: true,
                 step: function(row) { //using stream to allow huge file progressing
                     parseManager.i++;
-                    var dataArr = row.data[0];
+                    let dataArr = row.data[0];
                     if (!parseManager.header || parseManager.i === 1){
                         parseManager.header = dataArr;
                     } else {
                         //build csv array
-                        var measureRow = [];
+                        let measureRow = [];
                         for (i = 0; i < dataArr.length; i++) {
                             measureRow[parseManager.header[i]] = dataArr[i];
                         }
@@ -120,8 +120,8 @@ jQuery(document).ready(function(){
          * @param measureRow
          */
         parseManager.addRow = function(measureRow){
-            var chart = parseManager._chart;
-            var chartData = chart.config.data;
+            let chart = parseManager._chart;
+            let chartData = chart.config.data;
             chartData.labels.push(this.getDateFromData(measureRow));
 
             chartData.datasets[0].data.push(
@@ -139,8 +139,8 @@ jQuery(document).ready(function(){
         };
 
         parseManager.flushChart = function(force, callback){
-            var parseManager = this;
-            var chart = parseManager._chart;
+            let parseManager = this;
+            let chart = parseManager._chart;
 
             chart.data.labels = [];
             chart.data.datasets.forEach(function(dataSet){
@@ -197,7 +197,7 @@ jQuery(document).ready(function(){
          * @param endDate
          */
         this.update = function(startDate, endDate){
-            var parseManager = this;
+            let parseManager = this;
             parseManager._startDate = startDate;
             parseManager._endDate = endDate;
 
@@ -207,7 +207,7 @@ jQuery(document).ready(function(){
         };
     };
 
-    var daterangeConfig = {
+    let daterangeConfig = {
         locale: {
             format: appConfig.dateFormat
         },
@@ -219,9 +219,9 @@ jQuery(document).ready(function(){
 
     //init application
     jQuery(document).ready(function(){
-        var parseManager = new ParseManager();
+        let parseManager = new ParseManager();
         parseManager.setChart(chartJS);
-        var dateRange = jQuery('input[name="daterange"]');
+        let dateRange = jQuery('input[name="daterange"]');
         dateRange.daterangepicker(
             daterangeConfig,
             function(start, end) {
@@ -252,7 +252,7 @@ jQuery(document).ready(function(){
     });
 });
 
-var ButtonHlpr = function(btn){
+let ButtonHlpr = function(btn){
     let button = jQuery(btn);
     this.loading = function(){
         button.html(button.data('loading-text'));
