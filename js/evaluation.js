@@ -8,6 +8,9 @@ jQuery(document).ready(function(){
         black: "rgba(90,90,90,1)",
         green: "rgba(143,181,178,0.8)"
     };
+    if (appConfig.customTitle){
+        jQuery('#title').html(appConfig.customTitle);
+    }
     var data = {
         labels:[] ,
         datasets: [
@@ -50,7 +53,7 @@ jQuery(document).ready(function(){
                 callbacks: {
                     label: function(item, data){
                         if (data.datasets[item.datasetIndex].isMB){
-                            return data.datasets[item.datasetIndex].label + ": "+ item.yLabel + ' Mb/s'
+                            return data.datasets[item.datasetIndex].label + ": "+ item.yLabel + ' MBits/s'
                         }
                         return data.datasets[item.datasetIndex].label + ": " + item.yLabel;
                     }
@@ -233,5 +236,29 @@ jQuery(document).ready(function(){
                 .setEndDate(appConfig.daterange.endDate);
         }
         parseManager.parse();
+
+        jQuery('#startSpeedtest').click(function(){
+            let buttonHelper = new ButtonHlpr(this);
+
+            buttonHelper.loading();
+
+            jQuery.get( "/run_speedtest", function( data ) {
+                buttonHelper.reset();
+                parseManager.flushChart(true, function(){
+                    parseManager.parse();
+                });
+            });
+        });
     });
 });
+
+var ButtonHlpr = function(btn){
+    let button = jQuery(btn);
+    this.loading = function(){
+        button.html(button.data('loading-text'));
+    };
+
+    this.reset = function(){
+        button.html(button.data('original-text'));
+    };
+};

@@ -1,4 +1,8 @@
+/**
+ * copy appConfig.example.js into /data/appConfig.js to change values
+ */
 var appConfig = {
+  "customTitle": "Statistics",
   "dateFormat": "DD.MM.YYYY",
   "locale": "de",
   "labels": {

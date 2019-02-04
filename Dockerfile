@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.9
 
 # greet me :)
 MAINTAINER Tobias Rös - <roes@amicaldo.de>
@@ -10,7 +10,8 @@ RUN apk update && apk add \
   nodejs \
   nodejs-npm \
   nginx \
-  python \
+  nginx-mod-http-lua \
+  python3 \
   py-pip
 
 
@@ -37,11 +38,9 @@ ADD ./ /var/www/html/
 # install bower dependencies
 RUN npm install -g yarn && cd /var/www/html/ && yarn install
 
-# run first speedtest
-RUN cd /var/www/html/scripts && ./speedtest.py
-
 EXPOSE 80
 EXPOSE 443
 
+RUN chown -R nginx:nginx /var/www/html/
 RUN chmod +x /var/www/html/config/run.sh
 ENTRYPOINT ["/var/www/html/config/run.sh"]

@@ -7,13 +7,19 @@
 
     <!-- js -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="node_modules/popper.js/dist/popper.min.js"></script>
+    <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="node_modules/chart.js/dist/Chart.js"></script>
     <script src="node_modules/moment/min/moment-with-locales.min.js"></script>
     <script src="node_modules/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="node_modules/papaparse/papaparse.min.js"></script>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
     <!-- custom -->
-    <script type="text/javascript" src="js/appConfig.js"></script>
+    <script type="text/javascript" src="js/appConfig.example.js"></script>
+    <script type="text/javascript" src="data/appConfig.js"></script>
     <script type="text/javascript" src="js/evaluation.js"></script>
 
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
@@ -22,7 +28,7 @@
 
 <div class="card" style="border-bottom: 0;">
     <div class="card-header">
-        Statistics
+        <span id="title">Statistics</span> <button id="startSpeedtest" data-original-text="start manual speedtest" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> running ..." class="btn btn-outline-info float-right btn-sm">start manual speedtest</button>
     </div>
     <div class="card-body">
         <h4 class="card-title">
