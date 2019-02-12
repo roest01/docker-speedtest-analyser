@@ -12,12 +12,12 @@ import time
 def runSpeedtest():
 
         #run speedtest-cli
-        print('running speedtest')
+        print('--- running speedtest ---')
         speedtestCommand= "speedtest-cli --simple"
-        if "SPEEDTEST_SERVER" in os.environ:
-            server_= os.environ.get('SPEEDTEST_SERVER')
-            print('speedtest with preferred server: ' + server_)
-            speedtestCommand= "speedtest-cli --simple --mini https://" + server_
+        if "SPEEDTEST_PARAMS" in os.environ:
+            extraParams_= os.environ.get('SPEEDTEST_PARAMS')
+            speedtestCommand= speedtestCommand + " " + extraParams_
+            print('speedtest with extra parameter: ' + speedtestCommand)
         else:
             print('running with default server')
 

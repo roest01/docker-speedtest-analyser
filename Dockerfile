@@ -31,6 +31,7 @@ RUN touch /var/log/nginx/access.log && touch /var/log/nginx/error.log
 
 # install vhost config
 ADD ./config/vhost.conf /etc/nginx/conf.d/default.conf
+ADD config/nginxEnv.conf /etc/nginx/modules/nginxEnv.conf
 
 # install webroot files
 ADD ./ /var/www/html/
