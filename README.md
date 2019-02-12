@@ -33,10 +33,10 @@ the container please moint a volume in ``/var/www/html/data/``
 4. Enjoy continious speed statistics after a while
 
 # Environment variables
-| Variable  | Type | Usage |  Example Value |
-| ------------- | ------------- | ------------- | ------------- |
-| CRONJOB_ITERATION  | INT  | Minutes between the speedtests. Value 15 means the Cronjob runs every 15 minutes. Keep undefined to run hourly. | 15 |
-| SPEEDTEST_SERVER  | STRING  | mini server URL without protocol to prefer | ... |
+| Variable  | Type | Usage |  Example Value | Default |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| CRONJOB_ITERATION  | INT  | Time between speedtests in minutes. Value 15 means the cronjob runs every 15 minutes. Keep undefined to run hourly. | 15 | 60 |
+| SPEEDTEST_PARAMS  | STRING  | append extra parameter for cli command.<br/> `speedtest-cli --simple $SPEEDTEST_PARAMS` <br/> Check [parameter documentation](https://github.com/sivel/speedtest-cli#usage)  | --mini https://speedtest.test.fr | none |
 
 # Config
 You can configure the visualization frontend via ``appConfig.js``
@@ -52,14 +52,7 @@ copy the ``/js/appConfig.example.js`` into ``/data/appConfig.js`` (where your vo
 6. speedtest-cli
 
 #### Licence
-This repo is published with MIT and i'm good with it.
-But here are some things i'm not good with:
-
-Please do not fork and republish this repo.
-If you need to change sth. make a feature and do a pull request.
-Especially reDistributions on hub.docker.com are unwanted.
-
-You can sell reDistribute (in an private registry) publish at github and do whatever you want if the image is not public available.
+I kindly ask not to re-distribute this repo on hub.docker.com if it's not indispensable.
 
 ##### Disclaimer / Off topic
 I've written this small tool for private use on my Synology NAS.  
