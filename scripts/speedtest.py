@@ -12,8 +12,16 @@ import time
 def runSpeedtest():
 
         #run speedtest-cli
-        print('running speedtest')
-        a = os.popen("speedtest-cli --simple").read()
+        print('--- running speedtest ---')
+        speedtestCommand= "speedtest-cli --simple"
+        if "SPEEDTEST_PARAMS" in os.environ:
+            extraParams_= os.environ.get('SPEEDTEST_PARAMS')
+            speedtestCommand= speedtestCommand + " " + extraParams_
+            print('speedtest with extra parameter: ' + speedtestCommand)
+        else:
+            print('running with default server')
+
+        a = os.popen(speedtestCommand).read()
         print('ran')
         #split the 3 line result (ping,down,up)
         lines = a.split('\n')
