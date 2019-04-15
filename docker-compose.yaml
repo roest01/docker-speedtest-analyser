@@ -1,0 +1,14 @@
+version: '3'
+services:
+  speedtest:
+    container_name: speedtest
+    image: roest/docker-speedtest-analyser
+    restart: unless-stopped
+    network_mode: bridge
+    volumes:
+      - ~/Docker/speedtest/data:/var/www/html/data
+    ports:
+      - 8080:80
+      - 4343:443
+    environment:
+      - CRONJOB_ITERATION=15
