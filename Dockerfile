@@ -1,47 +1,31 @@
-FROM alpine:3.9
+FROM node:alpine as build
 
 # greet me :)
-MAINTAINER Tobias Rös - <roes@amicaldo.de>
+LABEL maintainer="Tobias Rös - <roes@amicaldo.de>"
 
+COPY . /usr/src/app
+WORKDIR /usr/src/app
 # install dependencies
+RUN npm install -g yarn && yarn install
+
+# nginx
+FROM nginx:alpine
+
+WORKDIR /usr/src/app
+COPY --from=build /usr/src/app /usr/src/app
+
+# install vhost config
+COPY config/vhost.conf /etc/nginx/conf.d/default.conf
+COPY config/nginxEnv.conf /etc/nginx/modules/nginxEnv.conf
+
+# install packages
 RUN apk update && apk add \
-  bash \
-  git \
-  nodejs \
-  nodejs-npm \
-  nginx \
   nginx-mod-http-lua \
   python3 \
-  py-pip
-
+  py-pip \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN pip install speedtest-cli
 
-# remove default content
-RUN rm -R /var/www/*
-
-# create directory structure
-RUN mkdir -p /etc/nginx
-RUN mkdir -p /run/nginx
-RUN mkdir -p /etc/nginx/global
-RUN mkdir -p /var/www/html
-
-# touch required files
-RUN touch /var/log/nginx/access.log && touch /var/log/nginx/error.log
-
-# install vhost config
-ADD ./config/vhost.conf /etc/nginx/conf.d/default.conf
-ADD config/nginxEnv.conf /etc/nginx/modules/nginxEnv.conf
-
-# install webroot files
-ADD ./ /var/www/html/
-
-# install bower dependencies
-RUN npm install -g yarn && cd /var/www/html/ && yarn install
-
-EXPOSE 80
-EXPOSE 443
-
-RUN chown -R nginx:nginx /var/www/html/
-RUN chmod +x /var/www/html/config/run.sh
-ENTRYPOINT ["/var/www/html/config/run.sh"]
+RUN chmod +x /usr/src/app/config/run.sh
+ENTRYPOINT ["/usr/src/app/config/run.sh"]
