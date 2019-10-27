@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - "resultdata:/usr/src/app/data"
+      - "resultdata:/var/www/html/data"
     ports:
       - 8080:80
       - 4343:443

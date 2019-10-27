@@ -9,10 +9,12 @@ WORKDIR /usr/src/app
 RUN npm install -g yarn && yarn install
 
 # nginx
-FROM nginx:alpine
+FROM openresty/openresty:alpine
 
-WORKDIR /usr/src/app
-COPY --from=build /usr/src/app /usr/src/app
+ENV CRONJOB_ITERATION=15
+
+WORKDIR /var/www/html
+COPY --from=build /usr/src/app /var/www/html
 
 # install vhost config
 COPY config/vhost.conf /etc/nginx/conf.d/default.conf
@@ -27,5 +29,5 @@ RUN apk update && apk add \
 
 RUN pip install speedtest-cli
 
-RUN chmod +x /usr/src/app/config/run.sh
-ENTRYPOINT ["/usr/src/app/config/run.sh"]
+RUN chmod +x /var/www/html/config/run.sh
+RUN /var/www/html/config/run.sh
