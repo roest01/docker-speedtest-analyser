@@ -42,14 +42,16 @@ def runSpeedtest():
         print(date,p, d, u)
 
         # save the data to file for local network plotting
-        filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                '../data/result.csv')
-        with open(os.path.normpath(filepath), 'a+') as outfile:
-                # add header if the file is new
-                if outfile.tell() == 0:
-                        outfile.write("timestamp,ping,download,upload\n")
-                writer = csv.writer(outfile)
-                writer.writerow((ts*1000, p, d, u))
+        filepath = os.path.normpath(
+            os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                         '../data/result.csv'))
+        fileExist = os.path.isfile(filepath)
+        with open(filepath, 'a+') as outfile:
+            # add header if the file is new
+            if not fileExist:
+                outfile.write("timestamp,ping,download,upload\n")
+            writer = csv.writer(outfile)
+            writer.writerow((ts*1000, p, d, u))
 
         return
 
