@@ -42,7 +42,8 @@ def runSpeedtest():
         print(date,p, d, u)
 
         # save the data to file for local network plotting
-        filepath = os.path.join(os.getcwd(), '../data/result.csv')
+        filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                '../data/result.csv')
         with open(os.path.normpath(filepath), 'a+') as outfile:
                 # add header if the file is new
                 if outfile.tell() == 0:
