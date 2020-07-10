@@ -8,6 +8,7 @@ import os
 import csv
 import datetime
 import time
+import re
 
 def runSpeedtest():
 
@@ -22,24 +23,24 @@ def runSpeedtest():
             print('running with default server')
 
         a = os.popen(speedtestCommand).read()
-        print('ran')
-        #split the 3 line result (ping,down,up)
-        lines = a.split('\n')
         print(a)
+        try:
+            p = re.search(r"Ping: (\d+\.\d*)", a).group(1)
+            d = re.search(r"Download: (\d+\.\d*)", a).group(1)
+            u = re.search(r"Upload: (\d+\.\d*)", a).group(1)
+            print('ran')
+         except AttributeError as e:
+            # if speedtest could not connect set the speeds to 0
+            print(e)
+            p = 0
+            d = 0
+            u = 0
+
         ts = time.time()
-        date =datetime.datetime.fromtimestamp(ts).strftime('%d.%m.%Y %H:%M:%S')
+        date = datetime.datetime.fromtimestamp(ts).strftime('%d.%m.%Y %H:%M:%S')
         print(date)
-        #if speedtest could not connect set the speeds to 0
-        if "Cannot" in a:
-                p = 100
-                d = 0
-                u = 0
-        #extract the values for ping down and up values
-        else:
-                p = lines[0][6:11]
-                d = lines[1][10:14]
-                u = lines[2][8:12]
-        print(date,p, d, u)
+        print(date, p, d, u)
+
         #save the data to file for local network plotting
         filepath = os.path.dirname(os.path.abspath(__file__))+'/../data/result.csv'
         fileExist = os.path.isfile(filepath)
