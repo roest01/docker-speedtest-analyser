@@ -30,7 +30,7 @@ def runSpeedtest():
         print(date)
         #if speedtest could not connect set the speeds to 0
         if "Cannot" in a:
-                p = 100
+                p = 0
                 d = 0
                 u = 0
 		isp = ''
