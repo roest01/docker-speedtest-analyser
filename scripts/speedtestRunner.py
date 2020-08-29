@@ -33,7 +33,7 @@ def runSpeedtest():
         ping = round(result['ping'], 2)
         download = round(result['download'] / 1000 / 1000, 2)
         upload = round(result['upload'] / 1000 / 1000, 2)
-        timestamp = round(datetime.datetime.strptime(result['timestamp'], '%Y-%m-%dT%H:%M:%S.%fZ').timestamp() * 1000, 3)
+        timestamp = round(time.time(), 3)
 
         csv_data_dict = {
                 CSV_FIELDNAMES[0]: timestamp,
