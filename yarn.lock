@@ -49,14 +49,19 @@ jquery@>=1.10:
   version "3.2.1"
   resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/77d2a51d0520d2ee44173afdf4e40a9201f5964e"
 
-moment@^2.9.0, moment@~2.18.0:
+moment@^2.9.0, moment@moment/moment#^2.19.3:
+  version "2.27.0"
+  uid "3e1a95b5ef0a505fec567c5b2290fd80e1da18f9"
+  resolved "https://codeload.github.com/moment/moment/tar.gz/3e1a95b5ef0a505fec567c5b2290fd80e1da18f9"
+
+moment@~2.18.0:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
-
-moment@moment/moment#^2.18.1:
-  version "2.18.1"
-  resolved "https://codeload.github.com/moment/moment/tar.gz/b8a7fc310eb3625e83fc0c8f1ea2840fa83c7378"
 
 papaparse@mholt/PapaParse#^4.3.6:
   version "4.3.6"
   resolved "https://codeload.github.com/mholt/PapaParse/tar.gz/60141533d4da7853383c2c51620fe9eac81c1333"
+
+popper.js@^1.14.7:
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"

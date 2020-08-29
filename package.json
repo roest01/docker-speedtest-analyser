@@ -11,7 +11,7 @@
     "bootstrap-daterangepicker": "dangrossman/bootstrap-daterangepicker#^2.1.25",
     "chart.js": "nnnick/Chart.js#^2.7.0",
     "jquery": "jquery/jquery-dist#1.9.1 - 3",
-    "moment": "moment/moment#^2.23.0",
+    "moment": "moment/moment#^2.19.3",
     "papaparse": "mholt/PapaParse#^4.3.6",
     "popper.js": "^1.14.7"
   },
