@@ -10,6 +10,7 @@ jQuery(document).ready(function(){
     };
     if (appConfig.customTitle){
         jQuery('#title').html(appConfig.customTitle);
+        window.document.title = appConfig.customTitle;
     }
     let data = {
         labels:[] ,
