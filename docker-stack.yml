@@ -1,0 +1,22 @@
+version: "3.6"
+
+services:
+
+ speedtest:
+   image: roest/docker-speedtest-analyser
+   volumes:
+     - your_speedtest_data_location:/var/www/html/data:rw #modify to the location of your speedtest data
+   ports:
+     - 80:80 #modify to suit your ports
+     - 443:443 #modify to suit your ports
+   environment:
+     - CRONJOB_ITERATION=15 #modify to suit your test interval
+   #modify deploy statement to suit your needs
+   deploy:
+     mode: replicated
+     replicas: 1
+     placement:
+       constraints:
+         - "node.labels.type == your_node_label"
+     restart_policy:
+      condition: on-failure
