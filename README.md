@@ -1,3 +1,5 @@
+*Forked from @roest01 docker-speedtest-analyser, but adds average metrics
+
 # Docker Speedtest Analyser
 
 Automated docker speedtest analyser tool with included web interface to monitor your internet speed connection over time. Setup at home on your NAS (Synology, QNAP tested) and the container runs hourly speedtests. The speedtest results are displayed in an webinterface as line graph(s) over the day.
