@@ -112,8 +112,55 @@ jQuery(document).ready(function(){
 
                         parseManager.addRow(measureRow);
                     }
+                },
+                complete: () => {
+                    const chart = parseManager._chart;
+                    const chartData = chart.config.data;
+                    chartData.datasets.forEach((dataset, idx) => {
+                        const { label } = dataset;
+                        if(!['Ping', 'Upload', 'Download'].includes(label)) {
+                            return
+                        }
+                        dataset.min = Infinity;
+                        dataset.max = 0;
+                        dataset.sum = 0;
+
+                        dataset.data.forEach(dp => {
+                            const datapoint = parseFloat(dp)
+                            if(datapoint < dataset.min) {
+                                dataset.min = datapoint
+                            }
+
+                            if (datapoint > dataset.max) {
+                                dataset.max = datapoint
+                            }
+
+                            dataset.sum += datapoint
+                        })
+
+                        dataset.average = parseInt(dataset.sum / dataset.data.length)
+
+                        const { average, isMB } = dataset;
+                        
+                        const data = dataset.data.map(() => average)
+                        chartData.datasets[idx+3] = {
+                            label: `${label} avg`,
+                            data,
+                            hidden: label !== 'Download',
+                            borderColor: dataset.borderColor.replace('0.5', 1),
+                            backgroundColor: dataset.backgroundColor.replace('0.5', 1),
+                            fill: false,
+                            pointRadius: 0,
+                            type: 'line',
+                            isMB
+                        }
+                        chart.update()
+                    })
                 }
             });
+
+            
+
         };
 
         /**
@@ -164,6 +211,7 @@ jQuery(document).ready(function(){
                 chartData.datasets[1].fill = false;
                 chartData.datasets[2].fill = true;
             }
+
 
             parseManager._chart.config.data = chartData;
             chart.update();
