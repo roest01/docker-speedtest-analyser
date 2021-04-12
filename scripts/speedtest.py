@@ -8,12 +8,13 @@ import os
 import csv
 import datetime
 import time
+import json
 
 def runSpeedtest():
 
         #run speedtest-cli
         print('--- running speedtest ---')
-        speedtestCommand= "speedtest-cli --simple"
+        speedtestCommand= "speedtest-cli --json"
         if "SPEEDTEST_PARAMS" in os.environ:
             extraParams_= os.environ.get('SPEEDTEST_PARAMS')
             speedtestCommand= speedtestCommand + " " + extraParams_
@@ -23,23 +24,31 @@ def runSpeedtest():
 
         a = os.popen(speedtestCommand).read()
         print('ran')
-        #split the 3 line result (ping,down,up)
-        lines = a.split('\n')
-        print(a)
+
         ts = time.time()
         date =datetime.datetime.fromtimestamp(ts).strftime('%d.%m.%Y %H:%M:%S')
         print(date)
         #if speedtest could not connect set the speeds to 0
         if "Cannot" in a:
-                p = 100
+                p = 0
                 d = 0
                 u = 0
+		isp = ''
+		lat=0
+		lon=0	
         #extract the values for ping down and up values
         else:
-                p = lines[0][6:11]
-                d = lines[1][10:14]
-                u = lines[2][8:12]
-        print(date,p, d, u)
+	        #Parse json output, load as dictionary                          
+        	results_dict = json.loads(a)                                    
+
+                p = round( results_dict['ping'] ,2)
+                d = round( results_dict['download'] /1000.0 / 1000.0, 2)
+                u = round( results_dict['upload'] /1000.0 / 1000.0, 2)
+		isp = results_dict['client']['isp']
+		lat = results_dict['client']['lat'] 
+		lon = results_dict['client']['lon']
+
+        print(date,p, d, u,isp,lat,lon)
         #save the data to file for local network plotting
         filepath = os.path.dirname(os.path.abspath(__file__))+'/../data/result.csv'
         fileExist = os.path.isfile(filepath)
@@ -48,10 +57,10 @@ def runSpeedtest():
         writer = csv.writer(out_file)
 
         if fileExist != True:
-                out_file.write("timestamp,ping,download,upload")
+                out_file.write("timestamp,ping,download,upload,isp,lat,lon")
                 out_file.write("\n")
 
-        writer.writerow((ts*1000,p,d,u))
+        writer.writerow((ts*1000,p,d,u,isp,lat,lon))
         out_file.close()
 
         return
