@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine:3.13
 
 # greet me :)
 MAINTAINER Tobias Rös - <roes@amicaldo.de>
@@ -45,4 +45,8 @@ EXPOSE 443
 RUN chown -R nginx:nginx /var/www/html/
 RUN chmod +x /var/www/html/config/run.sh
 RUN chmod +x /var/www/html/scripts/speedtestRunner.py
+
+# run first speedtest
+RUN /var/www/html/scripts/speedtestRunner.py
+
 ENTRYPOINT ["/var/www/html/config/run.sh"]
