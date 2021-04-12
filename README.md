@@ -1,6 +1,6 @@
 # Docker Speedtest Analyser
 
-Automated docker speedtest analyser tool with included web interface to monitor your internet speed connection over time. Setup at home on your NAS (Synology, QNAP tested) and the container runs hourly speedtests. The speedtest results are displayed in an webinterface as line graph(s) over the day.
+Automated docker speedtest analyser tool with included web interface to monitor your internet speed connection over time. Setup at home on your NAS (Synology, QNAP tested) and the container runs hourly speedtests. The speedtest results are displayed in an web interface as line graph(s) over the day.
 
 This tool was created in reference to [this reddit post](https://www.reddit.com/r/technology/comments/43fi39/i_set_up_my_raspberry_pi_to_automatically_tweet/).  
 It used [speedtest-cli](https://github.com/sivel/speedtest-cli) to make speedtests and log them into a CSV file.  
@@ -18,19 +18,19 @@ You can get the publicly available docker image at the following location: [roes
 1. The speedtest runs hourly per default
 2. nginx is prepared but not configured for SSL yet
 3. data is saved in a _.csv_ under ```/var/www/html/data/result.csv```
-4. First speedtest will be executed in container build
+4. First speedtest will be executed on container build
 
 # Installation
-The SpeedTest analyser should to run out of the box with docker.
+The SpeedTest analyser should run out of the box with docker.
 
 **Important:** To keep the history of speedtest within a rebuild of
-the container please moint a volume in ``/var/www/html/data/``
+the container please mount a volume in ``/var/www/html/data/``
 
 ### Setup:
-1. Moint host volume onto ``/var/www/html/data/``
+1. Mount host volume onto ``/var/www/html/data/``
 2. Map preferred host port on port _80_
 3. Build container from image
-4. Enjoy continious speed statistics after a while
+4. Enjoy continuous speed statistics after a while
 
 # Environment variables
 | Variable  | Type | Usage |  Example Value | Default |

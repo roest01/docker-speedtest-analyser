@@ -4,7 +4,7 @@ echo "Starting run.sh"
 cat /var/www/html/config/crontab.default > /var/www/html/config/crontab
 
 if [[ ${CRONJOB_ITERATION} && ${CRONJOB_ITERATION-x} ]]; then
-    sed -i -e "s/0/*\/${CRONJOB_ITERATION}/g" /var/www/html/config/crontab
+    sed -i -e "s/0/1-59\/${CRONJOB_ITERATION}/g" /var/www/html/config/crontab
 fi
 crontab /var/www/html/config/crontab
 
