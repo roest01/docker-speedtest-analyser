@@ -124,8 +124,9 @@ jQuery(document).ready(function(){
                         dataset.min = Infinity;
                         dataset.max = 0;
                         dataset.sum = 0;
+                        dataset.rollingAvg = [];
 
-                        dataset.data.forEach(dp => {
+                        dataset.data.forEach((dp, index) => {
                             const datapoint = parseFloat(dp)
                             if(datapoint < dataset.min) {
                                 dataset.min = datapoint
@@ -136,6 +137,17 @@ jQuery(document).ready(function(){
                             }
 
                             dataset.sum += datapoint
+
+                            const ROLLING_DPS = 8
+                            let sample = null
+                            if (index - ROLLING_DPS < 0) {
+                                sample = dataset.data.slice(index, ROLLING_DPS)
+                            } else {
+                                sample = dataset.data.slice(index - ROLLING_DPS, index)
+                            }
+
+                            const avg = sample.reduce((a,b) => a + parseFloat(b), 0) / sample.length
+                            dataset.rollingAvg.push(avg.toFixed(2))
                         })
 
                         dataset.average = parseInt(dataset.sum / dataset.data.length)
@@ -143,17 +155,30 @@ jQuery(document).ready(function(){
                         const { average, isMB } = dataset;
                         
                         const data = dataset.data.map(() => average)
+                        // chartData.datasets[idx+3] = {
+                        //     label: `${label} avg`,
+                        //     data,
+                        //     hidden: label !== 'Download',
+                        //     borderColor: dataset.borderColor.replace('0.5', 1),
+                        //     backgroundColor: dataset.backgroundColor.replace('0.5', 1),
+                        //     fill: false,
+                        //     pointRadius: 0,
+                        //     type: 'line',
+                        //     isMB
+                        // }
+
                         chartData.datasets[idx+3] = {
-                            label: `${label} avg`,
-                            data,
+                            label: `${label} rolling avg`,
+                            data: dataset.rollingAvg,
                             hidden: label !== 'Download',
                             borderColor: dataset.borderColor.replace('0.5', 1),
                             backgroundColor: dataset.backgroundColor.replace('0.5', 1),
                             fill: false,
-                            pointRadius: 0,
                             type: 'line',
                             isMB
                         }
+
+                        parseManager.updateStats(chartData.datasets)
                         chart.update()
                     })
                 }
@@ -162,6 +187,19 @@ jQuery(document).ready(function(){
             
 
         };
+
+        parseManager.updateStats = (datasets) => {
+            const div = document.getElementById('stats')
+            let html = ''
+
+            for(i=0; i<=2; i++) {
+                const { label, min, max, average, isMB } = datasets[i]
+
+                html += `<div style="margin: 20px;"><h4>${label}</h4>Min: ${min} ${isMB ? 'mbps' : 'ms' }<br /> Max: ${max} ${isMB ? 'mbps' : 'ms' }<br /> Avg: ${average} ${isMB ? 'mbps' : 'ms' }<br /></div>`
+            }
+
+            div.innerHTML = html
+        }
 
         /**
          * add a row to chart

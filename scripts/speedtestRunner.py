@@ -20,7 +20,7 @@ def runSpeedtest():
 
         #execute speedtest
         servers = []
-        threads = None
+        threads = 3
 
         s = Speedtest()
         s.get_servers(servers)
