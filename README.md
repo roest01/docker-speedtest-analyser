@@ -24,19 +24,21 @@ You can get the publicly available docker image at the following location: [roes
 The SpeedTest analyser should to run out of the box with docker.
 
 **Important:** To keep the history of speedtest within a rebuild of
-the container please moint a volume in ``/var/www/html/data/``
+the container please mount a volume in ``/var/www/html/data/``
 
 ### Setup:
-1. Moint host volume onto ``/var/www/html/data/``
+1. Mount host volume onto ``/var/www/html/data/``
 2. Map preferred host port on port _80_
 3. Build container from image
-4. Enjoy continious speed statistics after a while
+4. Enjoy continuous speed statistics after a while
 
 # Environment variables
 | Variable  | Type | Usage |  Example Value | Default |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | CRONJOB_ITERATION  | INT  | Time between speedtests in minutes. Value 15 means the cronjob runs every 15 minutes. Keep undefined to run hourly. | 15 | 60 |
 | SPEEDTEST_PARAMS  | STRING  | append extra parameter for cli command.<br/> `speedtest-cli --simple $SPEEDTEST_PARAMS` <br/> Check [parameter documentation](https://github.com/sivel/speedtest-cli#usage)  | --mini https://speedtest.test.fr | none |
+| ON_HOUR_JITTER | INT | Maximum number of seconds to wait before running speedtest on the hour. Value 30 means speedtest will run after a random number of seconds between 0 and 30. This only occurs on the hour to minimize failures due to server overload. Value 0 will disable any wait. | 30 | 0 |
+| BEST_SERVER_ATTEMPTS | INT | Number of times to try `get_best_server()` before failing the test. `get_best_server()` frequently fails on the hour, so retrying improves the chance of getting results. A value less than 1 will result in 1 attempt | 8 | 10 |
 
 # Config
 You can configure the visualization frontend via ``appConfig.js``
