@@ -14,6 +14,10 @@ RUN apk update && apk add \
   python3 \
   py-pip
 
+RUN rm /usr/bin/python /usr/bin/pip && \
+    ln -s /usr/bin/python3 /usr/bin/python && \
+    ln -s /usr/bin/pip3 /usr/bin/pip && \
+    pip install --upgrade pip
 
 RUN pip install speedtest-cli
 
