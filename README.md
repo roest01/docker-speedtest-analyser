@@ -41,7 +41,6 @@ the container please mount a volume in ``/var/www/html/data/``
 # Config
 You can configure the visualization frontend via ``appConfig.js``
 copy the ``/js/appConfig.example.js`` into ``/data/appConfig.js`` (where your volume should be mounted).
-Change ``let appConfig = {`` to ``appConfig = {`` in /data/appConfig.js
 
 #### Libs used
 1. Bootstrap 4 - alpha
