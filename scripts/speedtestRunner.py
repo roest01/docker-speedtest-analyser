@@ -8,11 +8,19 @@ import os
 import csv
 import datetime
 import time
-from speedtest import Speedtest
+from speedtest import Speedtest, SpeedtestBestServerFailure, ConfigRetrievalError
 
 #static values
 CSV_FIELDNAMES=["timestamp", "ping", "download", "upload"]
 FILEPATH = os.path.dirname(os.path.abspath(__file__)) + '/../data/result.csv'
+
+def getIntEnv(varname, default):
+        try:
+                val = int(os.environ.get(varname, default))
+        except ValueError:
+                print('{}:{} should be an integer, defaulting to {}'.format(varname, os.environ.get(varname), default))
+                val = default
+        return val
 
 def runSpeedtest():
         #run speedtest-cli
@@ -22,12 +30,26 @@ def runSpeedtest():
         servers = []
         threads = 3
 
-        s = Speedtest()
-        s.get_servers(servers)
-        s.get_best_server()
-        s.download(threads=threads)
-        s.upload(threads=threads, pre_allocate=False)
-        result = s.results.dict()
+        result = {'ping': 0.0, 'download': 0.0, 'upload': 0.0}
+        attempts = getIntEnv('RETRY_ATTEMPTS', 10)
+        for i in range(max(1, attempts)):
+                try:
+                        s = Speedtest()
+                except ConfigRetrievalError:
+                        print('attempt {} of {} failed to get config, trying again'.format(i + 1, attempts))
+                        continue
+                s.get_servers(servers)
+                try:
+                        s.get_best_server()
+                except SpeedtestBestServerFailure:
+                        print('attempt {} of {} failed to get best server, trying again'.format(i + 1, attempts))
+                        continue
+                s.download(threads=threads)
+                s.upload(threads=threads, pre_allocate=False)
+                result = s.results.dict()
+                break
+        else:
+                print('failed to get speeds, defaulting to 0.0')
 
         #collect speedtest data
         ping = round(result['ping'], 2)
