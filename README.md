@@ -37,6 +37,7 @@ the container please mount a volume in ``/var/www/html/data/``
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | CRONJOB_ITERATION  | INT  | Time between speedtests in minutes. Value 15 means the cronjob runs every 15 minutes. Keep undefined to run hourly. | 15 | 60 |
 | SPEEDTEST_PARAMS  | STRING  | append extra parameter for cli command.<br/> `speedtest-cli --simple $SPEEDTEST_PARAMS` <br/> Check [parameter documentation](https://github.com/sivel/speedtest-cli#usage)  | --mini https://speedtest.test.fr | none |
+| RETRY_ATTEMPTS | INT | Number of times to try speedtest before failing the test. Retrying improves the chance of getting results. A value less than 1 will result in 1 attempt | 8 | 10 |
 
 # Config
 You can configure the visualization frontend via ``appConfig.js``
