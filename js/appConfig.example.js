@@ -8,10 +8,22 @@ let appConfig = {
   "customTitle": "Statistics",
   "dateFormat": "DD.MM.YYYY",
   "locale": "de",
-  "labels": {
-    "download": "Download",
-    "ping": "Ping",
-    "upload": "Upload"
+  "datasets": {
+    "ping": {
+      "label": "Ping",
+      "hide": false,
+      "hideRollingAvg": true
+    },
+    "upload": {
+      "label": "Upload",
+      "hide": false,
+      "hideRollingAvg": true
+    },
+    "download": {
+      "label": "Download",
+      "hide": false,
+      "hideRollingAvg": false
+    }
   },
   "daterange": {
     "timePicker": true,
