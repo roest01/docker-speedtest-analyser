@@ -16,28 +16,34 @@ jQuery(document).ready(function(){
         labels:[] ,
         datasets: [
             {
-                label: appConfig.labels.ping,
+                name: 'ping',
+                label: appConfig.datasets.ping.label,
                 isMB: false,
                 fill: false,
                 backgroundColor: colors.black,
                 borderColor: colors.black,
-                tension: 0
+                tension: 0,
+                hidden: appConfig.datasets.ping.hide,
             },
             {
-                label: appConfig.labels.upload,
+                name: 'upload',
+                label: appConfig.datasets.upload.label,
                 isMB: true,
                 fill: false,
                 backgroundColor: colors.green,
                 borderColor: colors.green,
-                tension: 0
+                tension: 0,
+                hidden: appConfig.datasets.upload.hide,
             },
             {
-                label: appConfig.labels.download,
+                name: 'download',
+                label: appConfig.datasets.download.label,
                 isMB: true,
                 fill: true,
                 backgroundColor: colors.orange,
                 borderColor: colors.orange,
-                tension: 0
+                tension: 0,
+                hidden: appConfig.datasets.download.hide,
             }
         ]
     };
@@ -65,7 +71,7 @@ jQuery(document).ready(function(){
                 intersect: true
             },
             responsive: true,
-            multiTooltipTemplate: "<%if (datasetLabel){%><%=datasetLabel%>: <%}%><%= value %> <%if (datasetLabel != appConfig.labels.ping){%>MBits/s<%}%>"
+            multiTooltipTemplate: "<%if (datasetLabel){%><%=datasetLabel%>: <%}%><%= value %> <%if (datasetLabel != appConfig.datasets.ping.label){%>MBits/s<%}%>"
         }
     });
 
@@ -117,8 +123,8 @@ jQuery(document).ready(function(){
                     const chart = parseManager._chart;
                     const chartData = chart.config.data;
                     chartData.datasets.forEach((dataset, idx) => {
-                        const { label } = dataset;
-                        if(!['Ping', 'Upload', 'Download'].includes(label)) {
+                        const { name, label } = dataset;
+                        if(!['ping', 'upload', 'download'].includes(name)) {
                             return
                         }
                         dataset.min = Infinity;
@@ -155,22 +161,12 @@ jQuery(document).ready(function(){
                         const { average, isMB } = dataset;
                         
                         const data = dataset.data.map(() => average)
-                        // chartData.datasets[idx+3] = {
-                        //     label: `${label} avg`,
-                        //     data,
-                        //     hidden: label !== 'Download',
-                        //     borderColor: dataset.borderColor.replace('0.5', 1),
-                        //     backgroundColor: dataset.backgroundColor.replace('0.5', 1),
-                        //     fill: false,
-                        //     pointRadius: 0,
-                        //     type: 'line',
-                        //     isMB
-                        // }
 
                         chartData.datasets[idx+3] = {
+                            name: `${name} rolling avg`,
                             label: `${label} rolling avg`,
                             data: dataset.rollingAvg,
-                            hidden: label !== 'Download',
+                            hidden: appConfig.datasets[name].hideRollingAvg,
                             borderColor: dataset.borderColor.replace('0.5', 1),
                             backgroundColor: dataset.backgroundColor.replace('0.5', 1),
                             fill: false,
