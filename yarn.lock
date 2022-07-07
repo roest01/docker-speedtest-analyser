@@ -49,10 +49,10 @@ jquery@>=1.10:
   version "3.2.1"
   resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/77d2a51d0520d2ee44173afdf4e40a9201f5964e"
 
-moment@^2.9.0, moment@moment/moment#^2.19.3:
-  version "2.27.0"
-  uid "3e1a95b5ef0a505fec567c5b2290fd80e1da18f9"
-  resolved "https://codeload.github.com/moment/moment/tar.gz/3e1a95b5ef0a505fec567c5b2290fd80e1da18f9"
+moment@^2.9.0, moment@moment/moment#^2.29.4:
+  version "2.29.4"
+  uid "000ac1800e620f770f4eb31b5ae908f6167b0ab2"
+  resolved "https://codeload.github.com/moment/moment/tar.gz/000ac1800e620f770f4eb31b5ae908f6167b0ab2"
 
 moment@~2.18.0:
   version "2.18.1"
